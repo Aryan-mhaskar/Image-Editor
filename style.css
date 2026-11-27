@@ -1,0 +1,505 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #151515;
+    color: white;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: hidden;
+}
+
+/* =========================
+   MAIN EDITOR
+========================= */
+
+.editor {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar {
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #181818;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbar button,
+.choose-btn {
+    border: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.choose-btn {
+    display: inline-block;
+    background-color: #e5e5e5;
+    color: #111;
+}
+
+.reset-btn {
+    background-color: #c62828;
+}
+
+.download-btn {
+    background-color: #20a52b;
+}
+
+.toolbar button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.choose-btn:hover {
+    background-color: #cccccc;
+}
+
+/* =========================
+   MAIN CONTENT LAYOUT
+========================= */
+
+.editor-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+    gap: 18px;
+    padding: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* =========================
+   IMAGE PREVIEW SECTION
+========================= */
+
+.preview-section {
+    min-width: 0;
+    min-height: 0;
+    background-color: #202020;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #111111;
+    border-radius: 5px;
+}
+
+#preview-image {
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+#canvas {
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* =========================
+   IMAGE PLACEHOLDER
+========================= */
+
+.image-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.placeholder-icon {
+    font-size: 70px;
+    font-weight: 800;
+}
+
+.image-placeholder h3 {
+    margin-top: 15px;
+    font-size: 20px;
+    color: #aaaaaa;
+}
+
+.image-placeholder p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #777777;
+}
+
+/* =========================
+   FILTER PANEL
+========================= */
+
+.filter-panel {
+    min-width: 0;
+    min-height: 0;
+    background-color: #202020;
+    padding: 22px;
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.filter-panel h2 {
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+}
+
+/* Custom scrollbar for filter panel */
+
+.filter-panel {
+    scrollbar-width: thin;
+    scrollbar-color: #444444 #202020;
+}
+
+.filter-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-panel::-webkit-scrollbar-track {
+    background: #202020;
+}
+
+.filter-panel::-webkit-scrollbar-thumb {
+    background: #444444;
+    border-radius: 10px;
+}
+
+.filter-panel::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
+/* =========================
+   FILTER GROUPS
+========================= */
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: #d0d0d0;
+    font-weight: 500;
+}
+
+/* =========================
+   RANGE SLIDERS
+========================= */
+
+.filter-group input[type="range"] {
+    width: 100%;
+    height: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Slider thumb - Chrome, Edge, Safari */
+
+.filter-group input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ff3b3b;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 8px rgba(255, 59, 59, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Slider thumb - Firefox */
+
+.filter-group input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ff3b3b;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 8px rgba(255, 59, 59, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Thumb hover */
+
+.filter-group input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(255, 59, 59, 0.4);
+}
+
+.filter-group input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(255, 59, 59, 0.4);
+}
+
+/* Thumb while sliding */
+
+.filter-group input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.25);
+}
+
+/* =========================
+   PRESETS
+========================= */
+
+.presets-section {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #333333;
+}
+
+.presets-section h2 {
+    margin-bottom: 15px;
+}
+
+.preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.preset-btn {
+    padding: 10px 5px;
+    border: 1px solid #3a3a3a;
+    border-radius: 5px;
+    background-color: #e5e5e5;
+    color: #111111;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.preset-btn:hover {
+    background-color: #c7c7c7;
+    transform: translateY(-1px);
+}
+
+/* Active preset */
+
+.preset-btn.active {
+    background-color: #ff3b3b;
+    color: #ffffff;
+    border-color: #ff3b3b;
+}
+
+.preset-btn.active:hover {
+    background-color: #e83232;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+   900px AND BELOW
+========================= */
+
+@media (max-width: 900px) {
+
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .editor {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+    }
+
+    .toolbar {
+        height: auto;
+        min-height: 60px;
+        padding: 12px 16px;
+    }
+
+    .editor-main {
+        grid-template-columns: 1fr;
+        height: auto;
+        flex: none;
+        min-height: auto;
+        overflow: visible;
+        gap: 15px;
+    }
+
+    .preview-section {
+        height: 55vh;
+        min-height: 350px;
+    }
+
+    .image-container {
+        height: 100%;
+    }
+
+    .filter-panel {
+        min-height: auto;
+        overflow: visible;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+   500px AND BELOW
+========================= */
+
+@media (max-width: 500px) {
+
+    .toolbar {
+        padding: 12px;
+    }
+
+    .toolbar-left {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .toolbar button,
+    .choose-btn {
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .editor-main {
+        padding: 8px;
+        gap: 12px;
+    }
+
+    .preview-section {
+        height: 40vh;
+        min-height: 280px;
+        padding: 10px;
+    }
+
+    .image-container {
+        min-height: 0;
+    }
+
+    .image-placeholder {
+        padding: 10px;
+    }
+
+    .placeholder-icon {
+        font-size: 48px;
+    }
+
+    .image-placeholder h3 {
+        font-size: 17px;
+    }
+
+    .image-placeholder p {
+        font-size: 12px;
+    }
+
+    .filter-panel {
+        padding: 17px;
+    }
+
+    .filter-panel h2 {
+        font-size: 19px;
+    }
+
+    .filter-group {
+        margin-bottom: 18px;
+    }
+
+    .preset-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .preset-btn {
+        padding: 11px 8px;
+        font-size: 13px;
+    }
+}
+
+/* =========================
+   SMALL MOBILE
+   360px AND BELOW
+========================= */
+
+@media (max-width: 360px) {
+
+    .toolbar-left {
+        gap: 6px;
+    }
+
+    .toolbar button,
+    .choose-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .preview-section {
+        min-height: 250px;
+    }
+
+    .filter-panel {
+        padding: 14px;
+    }
+
+    .preset-btn {
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="editor">
+
+        <!-- Top Toolbar -->
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <label for="image-input" class="choose-btn">Choose Image</label>
+                <input type="file" id="image-input" accept="image/*" hidden>
+
+                <button id="reset-btn" class="reset-btn">Reset</button>
+                <button id="download-btn" class="download-btn">Download</button>
+            </div>
+        </header>
+
+        <!-- Main Editor -->
+        <main class="editor-main">
+
+            <!-- Image Preview -->
+            <section class="preview-section">
+                <div class="image-container">
+                    <div class="image-placeholder" id="image-placeholder">
+                        <span class="placeholder-icon"><i class="ri-image-add-fill"></i></span>
+                        <h3>No Image Selected</h3>
+                        <p>Choose an image to start editing</p>
+                    </div>
+
+                    <canvas id="canvas"></canvas>
+                </div>
+            </section>
+
+            <!-- Filter Panel -->
+            <aside class="filter-panel">
+
+                <h2>Filters</h2>
+
+                <div class="filters">
+
+                    <div class="filter-group">
+                        <label for="brightness">Brightness</label>
+                        <input type="range" id="brightness" min="0" max="200" value="100">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="contrast">Contrast</label>
+                        <input type="range" id="contrast" min="0" max="200" value="100">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="saturation">Saturation</label>
+                        <input type="range" id="saturation" min="0" max="200" value="100">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="hueRotation">Hue Rotation</label>
+                        <input type="range" id="hueRotation" min="0" max="360" value="0">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="blur">Blur</label>
+                        <input type="range" id="blur" min="0" max="10" step="0.1" value="0">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="grayscale">Grayscale</label>
+                        <input type="range" id="grayscale" min="0" max="100" value="0">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sepia">Sepia</label>
+                        <input type="range" id="sepia" min="0" max="100" value="0">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="opacity">Opacity</label>
+                        <input type="range" id="opacity" min="0" max="100" value="100">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="invert">Invert</label>
+                        <input type="range" id="invert" min="0" max="100" value="0">
+                    </div>
+
+                </div>
+
+                <!-- Presets -->
+                <section class="presets-section">
+                    <h2>Presets</h2>
+
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-preset="drama">Drama</button>
+                        <button class="preset-btn" data-preset="vintage">Vintage</button>
+                        <button class="preset-btn" data-preset="oldSchool">Old School</button>
+                        <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+
+                        <button class="preset-btn" data-preset="softGlow">Soft Glow</button>
+                        <button class="preset-btn" data-preset="noir">Noir</button>
+                        <button class="preset-btn" data-preset="warmSunset">Warm Sunset</button>
+                        <button class="preset-btn" data-preset="coolTone">Cool Tone</button>
+
+                        <button class="preset-btn" data-preset="faded">Faded</button>
+                        <button class="preset-btn" data-preset="retroPop">Retro Pop</button>
+                    </div>
+                </section>
+
+            </aside>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
